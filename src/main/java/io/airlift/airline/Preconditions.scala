@@ -21,4 +21,10 @@ object Preconditions {
       reference
     }
   }
+
+  def checkArgument(expression: Boolean, @Nullable errorMessage: AnyRef) {
+    if (!expression) {
+      throw new IllegalArgumentException(String.valueOf(errorMessage))
+    }
+  }
 }
