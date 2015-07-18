@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,15 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.airline.command
 
-package io.airlift.airline.command;
+import io.airlift.airline.Option
+import io.airlift.airline.OptionType.GLOBAL
 
-import io.airlift.airline.Option;
-
-import static io.airlift.airline.OptionType.GLOBAL;
-
-public class CommandMain
-{
-    @Option(type = GLOBAL, name = "-v", description = "Verbose mode")
-    public Boolean verbose = false;
+class CommandMain {
+  @Option(`type` = GLOBAL, name = Array("-v"), description = "Verbose mode")
+  var verbose: Boolean = false
 }
