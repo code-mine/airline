@@ -11,16 +11,24 @@ import scala.collection.JavaConverters._
 object UsageHelper {
   val DEFAULT_OPTION_COMPARATOR: Comparator[OptionMetadata] = new Comparator[OptionMetadata] {
     def compare(o1: OptionMetadata, o2: OptionMetadata): Int = {
-      var option1: String = o1.getOptions.iterator.next
+      var option1 = o1.getOptions.iterator.next
       option1 = option1.replaceFirst("^-+", "")
-      var option2: String = o2.getOptions.iterator.next
+      var option2 = o2.getOptions.iterator.next
       option2 = option2.replaceFirst("^-+", "")
-      ComparisonChain.start.compare(option1.toLowerCase, option2.toLowerCase).compare(option2, option1).compare(System.identityHashCode(o1), System.identityHashCode(o2)).result
+      ComparisonChain.start
+        .compare(option1.toLowerCase, option2.toLowerCase)
+        .compare(option2, option1)
+        .compare(System.identityHashCode(o1), System.identityHashCode(o2))
+        .result
     }
   }
   val DEFAULT_COMMAND_COMPARATOR: Comparator[CommandMetadata] = new  Comparator[CommandMetadata] {
     def compare(o1: CommandMetadata, o2: CommandMetadata): Int = {
-      ComparisonChain.start.compare(o1.getName.toLowerCase, o2.getName.toLowerCase).compare(o2.getName, o1.getName).compare(System.identityHashCode(o1), System.identityHashCode(o2)).result
+      ComparisonChain.start
+        .compare(o1.getName.toLowerCase, o2.getName.toLowerCase)
+        .compare(o2.getName, o1.getName)
+        .compare(System.identityHashCode(o1), System.identityHashCode(o2))
+        .result
     }
   }
 
