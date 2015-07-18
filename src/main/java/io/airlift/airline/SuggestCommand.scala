@@ -32,7 +32,7 @@ import scala.collection.JavaConverters._
     if (suggesterClass != null) {
       val suggesterMetadata = MetadataLoader.loadSuggester(suggesterClass)
       if (suggesterMetadata != null) {
-        val bindings: ImmutableMap.Builder[Class[_], AnyRef] = ImmutableMap.builder[Class[_], AnyRef].put(classOf[GlobalMetadata], metadata)
+        val bindings = ImmutableMap.builder[Class[_], AnyRef].put(classOf[GlobalMetadata], metadata)
         if (state.getGroup != null) {
           bindings.put(classOf[CommandGroupMetadata], state.getGroup)
         }
