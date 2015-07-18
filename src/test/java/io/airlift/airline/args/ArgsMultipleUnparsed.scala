@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,23 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.airline.args
 
-package io.airlift.airline.args;
-
-import io.airlift.airline.Arguments;
-import io.airlift.airline.Command;
+import io.airlift.airline.{Arguments, Command}
 
 /**
  * Error case if multiple unparsed (without a names attribute) arguments are defined.
  *
  * @author cbeust
  */
-@Command(name = "ArgsMultipleUnparsed")
-public class ArgsMultipleUnparsed
-{
-    @Arguments(description = "Bogus1")
-    public String unparsed1;
-
-    @Arguments(description = "Bogus2")
-    public String unparsed2;
+@Command(name = "ArgsMultipleUnparsed") class ArgsMultipleUnparsed {
+  @Arguments(description = "Bogus1") var unparsed1: String = null
+  @Arguments(description = "Bogus2") var unparsed2: String = null
 }
