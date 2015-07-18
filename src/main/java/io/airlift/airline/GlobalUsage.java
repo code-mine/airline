@@ -21,12 +21,12 @@ public class GlobalUsage
 
     public GlobalUsage()
     {
-        this(79, DEFAULT_OPTION_COMPARATOR);
+        this(79, DEFAULT_OPTION_COMPARATOR());
     }
 
     public GlobalUsage(int columnSize)
     {
-        this(columnSize, DEFAULT_OPTION_COMPARATOR);
+        this(columnSize, DEFAULT_OPTION_COMPARATOR());
     }
 
     public GlobalUsage(int columnSize, @Nullable Comparator<? super OptionMetadata> optionComparator)

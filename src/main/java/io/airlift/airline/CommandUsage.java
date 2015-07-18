@@ -22,12 +22,12 @@ public class CommandUsage
 
     public CommandUsage()
     {
-        this(79, DEFAULT_OPTION_COMPARATOR);
+        this(79, DEFAULT_OPTION_COMPARATOR());
     }
 
     public CommandUsage(int columnSize)
     {
-        this(columnSize, DEFAULT_OPTION_COMPARATOR);
+        this(columnSize, DEFAULT_OPTION_COMPARATOR());
     }
 
     public CommandUsage(int columnSize, @Nullable Comparator<? super OptionMetadata> optionComparator)

@@ -20,21 +20,21 @@ public class CommandGroupUsage
     private final int columnSize;
     private final boolean hideGlobalOptions;
     private final Comparator<? super OptionMetadata> optionComparator;
-    private final Comparator<? super CommandMetadata> commandComparator = DEFAULT_COMMAND_COMPARATOR;
+    private final Comparator<? super CommandMetadata> commandComparator = DEFAULT_COMMAND_COMPARATOR();
 
     public CommandGroupUsage()
     {
-        this(79, false, DEFAULT_OPTION_COMPARATOR);
+        this(79, false, DEFAULT_OPTION_COMPARATOR());
     }
 
     public CommandGroupUsage(int columnSize)
     {
-        this(columnSize, false, DEFAULT_OPTION_COMPARATOR);
+        this(columnSize, false, DEFAULT_OPTION_COMPARATOR());
     }
 
     public CommandGroupUsage(int columnSize, boolean hideGlobalOptions)
     {
-        this(columnSize, hideGlobalOptions, DEFAULT_OPTION_COMPARATOR);
+        this(columnSize, hideGlobalOptions, DEFAULT_OPTION_COMPARATOR());
     }
 
     public CommandGroupUsage(int columnSize, boolean hideGlobalOptions, @Nullable Comparator<? super OptionMetadata> optionComparator)
