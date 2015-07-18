@@ -20,20 +20,7 @@ package io.airlift.airline;
 
 import com.google.common.collect.ImmutableList;
 import io.airlift.airline.Cli.CliBuilder;
-import io.airlift.airline.args.Args1;
-import io.airlift.airline.args.Args2;
-import io.airlift.airline.args.ArgsArityString;
-import io.airlift.airline.args.ArgsBooleanArity;
-import io.airlift.airline.args.ArgsBooleanArity0;
-import io.airlift.airline.args.ArgsEnum;
-import io.airlift.airline.args.ArgsInherited;
-import io.airlift.airline.args.ArgsMultipleUnparsed;
-import io.airlift.airline.args.ArgsOutOfMemory;
-import io.airlift.airline.args.ArgsPrivate;
-import io.airlift.airline.args.ArgsRequired;
-import io.airlift.airline.args.ArgsSingleChar;
-import io.airlift.airline.args.Arity1;
-import io.airlift.airline.args.OptionsRequired;
+import io.airlift.airline.args.*;
 import io.airlift.airline.command.CommandAdd;
 import io.airlift.airline.command.CommandCommit;
 import io.airlift.airline.model.CommandMetadata;
@@ -41,7 +28,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -50,9 +36,7 @@ import static com.google.common.base.Predicates.compose;
 import static com.google.common.base.Predicates.equalTo;
 import static com.google.common.collect.Iterables.find;
 import static io.airlift.airline.SingleCommand.singleCommand;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class TestSingleCommand
 {
@@ -313,14 +297,14 @@ public class TestSingleCommand
     public void arity1Success1()
     {
         Arity1 arguments = singleCommand(Arity1.class).parse("-inspect", "true");
-        assertTrue(arguments.inspect);
+        assertTrue(arguments.inspect());
     }
 
     @Test
     public void arity1Success2()
     {
         Arity1 arguments = singleCommand(Arity1.class).parse("-inspect", "false");
-        assertFalse(arguments.inspect);
+        assertFalse(arguments.inspect());
     }
 
     @Test(expectedExceptions = ParseException.class,

@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,18 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.airline.args
 
-package io.airlift.airline.args;
+import io.airlift.airline.{Command, Option}
 
-import io.airlift.airline.Command;
-import io.airlift.airline.Option;
-
-@Command(name = "CommandHidden", hidden = true)
-public class CommandHidden
-{
-    @Option(name = "--hidden", hidden = true)
-    public String hiddenOption;
-
-    @Option(name = "--optional", hidden = false)
-    public String optionalOption;
+@Command(name = "CommandHidden", hidden = true) class CommandHidden {
+  @Option(name = Array("--hidden"), hidden = true) var hiddenOption: String = null
+  @Option(name = Array("--optional"), hidden = false) var optionalOption: String = null
 }
