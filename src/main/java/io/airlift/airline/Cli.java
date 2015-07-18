@@ -23,15 +23,9 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
-import io.airlift.airline.model.ArgumentsMetadata;
-import io.airlift.airline.model.CommandGroupMetadata;
-import io.airlift.airline.model.CommandMetadata;
-import io.airlift.airline.model.GlobalMetadata;
-import io.airlift.airline.model.MetadataLoader;
-import io.airlift.airline.model.OptionMetadata;
+import io.airlift.airline.model.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
@@ -218,6 +212,15 @@ public class Cli<C>
         {
             this.defaultCommandGroupCommands.add(command);
             this.defaultCommandGroupCommands.addAll(ImmutableList.copyOf(moreCommands));
+            return this;
+        }
+
+        public CliBuilder withCommands2(Class command, Class... moreCommands)
+        {
+            this.defaultCommandGroupCommands.add(command);
+            ArrayList<Class<? extends C>> list = new ArrayList<>();
+            list.addAll(Arrays.<Class<? extends C>>asList(moreCommands));
+            this.defaultCommandGroupCommands.addAll(Collections.unmodifiableList(list));
             return this;
         }
 
