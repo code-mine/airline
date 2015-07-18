@@ -17,4 +17,4 @@
  */
 package io.airlift.airline
 
-class ParseCommandMissingException extends ParseException("No command specified")
+class ParseCommandMissingException extends ParseException(null.asInstanceOf[Exception], "No command specified")

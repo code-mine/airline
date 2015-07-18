@@ -13,7 +13,7 @@ object ParserUtil {
     }
     catch {
       case e: Exception =>
-        throw new ParseException(e, "Unable to create instance %s", `type`.getName)
+        throw new ParseException(e, "Unable to create instance %s", Array(`type`.getName): _*)
     }
   }
 

@@ -21,14 +21,14 @@ class ParseOptionConversionException(optionTitle :String, value: String, typeNam
   extends ParseException("%s: can not convert \"%s\" to a %s", optionTitle, value, typeName) {
 
   def getOptionTitle: String = {
-    return optionTitle
+    optionTitle
   }
 
   def getValue: String = {
-    return value
+    value
   }
 
   def getTypeName: String = {
-    return typeName
+    typeName
   }
 }
