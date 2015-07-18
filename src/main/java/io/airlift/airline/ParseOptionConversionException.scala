@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.airline
 
-package io.airlift.airline;
+class ParseOptionConversionException(optionTitle :String, value: String, typeName:String)
+  extends ParseException("%s: can not convert \"%s\" to a %s", optionTitle, value, typeName) {
 
-public class ParseOptionMissingException extends ParseException
-{
-    private final String optionTitle;
+  def getOptionTitle: String = {
+    return optionTitle
+  }
 
-    ParseOptionMissingException(String optionTitle)
-    {
-        super("Required option '%s' is missing", optionTitle);
-        this.optionTitle = optionTitle;
-    }
+  def getValue: String = {
+    return value
+  }
 
-    public String getOptionTitle()
-    {
-        return optionTitle;
-    }
+  def getTypeName: String = {
+    return typeName
+  }
 }
