@@ -114,8 +114,8 @@ object UsageHelper {
     stringBuilder.toString
   }
 
-  def toSynopsisUsage(options: List[OptionMetadata]): List[String] = {
-    options.asScala.filter(!_.isHidden).map(toUsage).asJava
+  def toSynopsisUsage(options: java.util.Collection[OptionMetadata]): List[String] = {
+    options.asScala.filter(!_.isHidden).map(toUsage).toList.asJava
   }
 }
 

@@ -33,7 +33,7 @@ class GlobalUsageSummary(columnSize: Int = 79) {
 
     val commandArguments = global.getOptions.asScala.map{ option: OptionMetadata =>
       if (option.isHidden) null else toUsage(option)
-    }
+    }.asJava
     out.newPrinterWithHangingIndent(8)
       .append("usage:")
       .append(global.getName)
