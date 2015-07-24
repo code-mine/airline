@@ -20,7 +20,8 @@ object ParserUtil {
   def createInstance[T](`type`: Class[_ >: Null], options: java.lang.Iterable[OptionMetadata],
                         parsedOptions: ListMultimap[OptionMetadata, AnyRef],
                         arguments: ArgumentsMetadata, parsedArguments: java.lang.Iterable[AnyRef],
-                        metadataInjection: java.lang.Iterable[Accessor], bindings: util.Map[Class[_], AnyRef]): T = {
+                        metadataInjection: java.lang.Iterable[Accessor],
+                        bindings: util.Map[Class[_], AnyRef]): T = {
     val commandInstance: T = createInstance(`type`).asInstanceOf[T]
     import scala.collection.JavaConversions._
     for (option <- options) {
