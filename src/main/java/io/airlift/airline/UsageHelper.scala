@@ -33,7 +33,7 @@ object UsageHelper {
   }
 
   def toDescription(option: OptionMetadata): String = {
-    val options: Set[String] = option.getOptions
+    val options = option.getOptions
     var argumentString: String = null
     if (option.getArity > 0) {
       argumentString = Seq(option.getTitle).map("<" + _ + ">").mkString(" ")
@@ -55,7 +55,7 @@ object UsageHelper {
   }
 
   def toUsage(option: OptionMetadata): String = {
-    val options: Set[String] = option.getOptions
+    val options = option.getOptions
     val required: Boolean = option.isRequired
     val stringBuilder = new java.lang.StringBuilder
     if (!required) {

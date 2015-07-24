@@ -2,16 +2,8 @@ package io.airlift.airline.model;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.ListMultimap;
-import io.airlift.airline.Accessor;
-import io.airlift.airline.Arguments;
-import io.airlift.airline.Command;
-import io.airlift.airline.Option;
-import io.airlift.airline.OptionType;
-import io.airlift.airline.Suggester;
+import com.google.common.collect.*;
+import io.airlift.airline.*;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -168,7 +160,8 @@ public class MetadataLoader
                         allowedValues = null;
                     }
 
-                    OptionMetadata optionMetadata = new OptionMetadata(optionType, options, name, description, arity, required, hidden, allowedValues, path);
+                    OptionMetadata optionMetadata = new OptionMetadata(
+                            optionType, options, name, description, arity, required, hidden, allowedValues, ImmutableSet.of(new Accessor(path)));
                     switch (optionType) {
                         case GLOBAL:
                             injectionMetadata.globalOptions.add(optionMetadata);
@@ -214,7 +207,7 @@ public class MetadataLoader
             @Override
             public OptionMetadata apply(@Nullable Collection<OptionMetadata> options)
             {
-                return new OptionMetadata(options);
+                return OptionMetadata.apply(options);
             }
         }));
 

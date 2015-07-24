@@ -230,7 +230,7 @@ public class Parser
                 return nextState;
             }
 
-            throw new UnsupportedOperationException("Short options style can not be used with option " + option.getAllowedValues());
+            throw new UnsupportedOperationException("Short options style can not be used with option " + option.allowedValues());
         }
 
         // consume the current token
