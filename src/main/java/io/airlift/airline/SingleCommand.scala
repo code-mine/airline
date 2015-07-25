@@ -47,8 +47,7 @@ class SingleCommand[C](command: Class[C]) {
   def parse(args: Iterable[String]): C = {
     io.airlift.airline.Preconditions.checkNotNull(args, "args is null")
 
-    val parser = new Parser
-    val state = parser.parseCommand(commandMetadata, args.toList)
+    val state = new Parser().parseCommand(commandMetadata, args.toList)
     validate(state)
     val command = state.getCommand
     createInstance(

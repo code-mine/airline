@@ -17,17 +17,21 @@
  */
 package io.airlift.airline.command
 
-import java.util.List
+import java.util
 import javax.inject.Inject
 
 import io.airlift.airline.{Arguments, Command, Option}
 
-@Command(name = "commit", description = "Record changes to the repository") class CommandCommit {
+@Command(name = "commit", description = "Record changes to the repository")
+class CommandCommit {
   @Inject var commandMain: CommandMain = null
+
   @Arguments(description = "List of files")
-  var files: List[String] = null
+  var files: util.List[String] = null
+
   @Option(name = Array("--amend"), description = "Amend")
   var amend: Boolean = false
+
   @Option(name = Array("--author"))
   var author: String = null
 }

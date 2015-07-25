@@ -8,9 +8,16 @@ import io.airlift.airline.model.{CommandGroupMetadata, CommandMetadata, OptionMe
 import scala.collection.JavaConverters._
 
 object ParseState {
-  def newInstance: ParseState = {
-    new ParseState(null, null,
-      ArrayListMultimap.create[OptionMetadata, AnyRef], ImmutableList.of[Context], scala.List[AnyRef]().asJava, null, ImmutableList.of[String])
+  def newInstance(): ParseState = {
+    new ParseState(
+      null,
+      null,
+      ArrayListMultimap.create[OptionMetadata, AnyRef],
+      ImmutableList.of[Context],
+      scala.List[AnyRef]().asJava,
+      null,
+      ImmutableList.of[String]
+    )
   }
 }
 

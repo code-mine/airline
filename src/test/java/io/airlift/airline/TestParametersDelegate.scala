@@ -1,5 +1,6 @@
 package io.airlift.airline
 
+import java.util
 import java.util.List
 import javax.inject.Inject
 
@@ -51,7 +52,7 @@ object TestParametersDelegate {
   @Command(name = "command") object CombinedAndNestedDelegates {
 
     class LeafDelegate {
-      @Option(name = Array("--list")) var list: List[String] = newArrayList("value1", "value2")
+      @Option(name = Array("--list")) var list: util.List[String] = newArrayList("value1", "value2")
       @Option(name = Array("--bool")) var bool: Boolean = false
     }
 
@@ -113,11 +114,11 @@ object TestParametersDelegate {
   @Command(name = "command") object DuplicateMainParametersAreAllowed {
 
     class Delegate1 {
-      @Arguments var mainParams1: List[String] = newArrayList()
+      @Arguments var mainParams1: util.List[String] = newArrayList()
     }
 
     class Delegate2 {
-      @Arguments var mainParams1: List[String] = newArrayList()
+      @Arguments var mainParams1: util.List[String] = newArrayList()
     }
 
   }
@@ -131,11 +132,13 @@ object TestParametersDelegate {
   @Command(name = "command") object ConflictingMainParametersAreNotAllowed {
 
     class Delegate1 {
-      @Arguments(description = "foo") var mainParams1: List[String] = newArrayList()
+      @Arguments(description = "foo")
+      var mainParams1: util.List[String] = newArrayList()
     }
 
     class Delegate2 {
-      @Arguments(description = "bar") var mainParams1: List[String] = newArrayList()
+      @Arguments(description = "bar")
+      var mainParams1: util.List[String] = newArrayList()
     }
 
   }
@@ -168,7 +171,7 @@ class TestParametersDelegate {
 
   @Test def combinedAndNestedDelegates() {
     val p = singleCommandParser(classOf[TestParametersDelegate.CombinedAndNestedDelegates])
-      .parse("command", "-d", "234", "--list", "a", "--list", "b", "-a")
+             .parse("command", "-d", "234", "--list", "a", "--list", "b", "-a")
     assertEquals(p.nestedDelegate2.nestedDelegate1.leafDelegate.list, newArrayList("value1", "value2", "a", "b"))
     assertFalse(p.nestedDelegate2.nestedDelegate1.leafDelegate.bool)
     assertEquals(p.nestedDelegate2.nestedDelegate1.d, Integer.valueOf(234))

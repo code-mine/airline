@@ -17,15 +17,18 @@
  */
 package io.airlift.airline.command
 
-import java.util.List
+import java.util
 import javax.inject.Inject
 
 import io.airlift.airline.{Arguments, Command, Option}
 
-@Command(name = "add", description = "Add file contents to the index") class CommandAdd {
+@Command(name = "add", description = "Add file contents to the index")
+class CommandAdd {
   @Inject var commandMain: CommandMain = null
+
   @Arguments(description = "Patterns of files to be added")
-  var patterns: List[String] = null
+  var patterns: util.List[String] = null
+
   @Option(name = Array("-i"))
   var interactive: Boolean = false
 }

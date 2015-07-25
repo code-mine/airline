@@ -1,11 +1,11 @@
 package io.airlift.airline.model
 
-import com.google.common.collect.ImmutableSet
-import com.google.common.collect.Iterables
-import io.airlift.airline.{Preconditions, Accessor, OptionType}
-import java.lang.reflect.Field
 import java.util.Set
+
+import com.google.common.collect.{ImmutableSet, Iterables}
 import com.google.common.collect.Sets.newHashSet
+import io.airlift.airline.{Accessor, OptionType, Preconditions}
+
 import scala.collection.JavaConversions._
 
 object OptionMetadata {
