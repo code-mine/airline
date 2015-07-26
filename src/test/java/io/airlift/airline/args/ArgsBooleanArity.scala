@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,17 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.airline.args
 
-package io.airlift.airline.args;
+import io.airlift.airline.Command
+import io.airlift.airline.Option
 
-import io.airlift.airline.Arguments;
-import io.airlift.airline.Command;
-
-import java.util.List;
-
-@Command(name = "ArgsRequired")
-public class ArgsRequired
-{
-    @Arguments(description = "List of files", required = true)
-    public List<String> parameters = com.google.common.collect.Lists.newArrayList();
+@Command(name = "ArgsBooleanArity")
+class ArgsBooleanArity {
+  @Option(name = Array("-debug"), arity = 1)
+  var debug: java.lang.Boolean = false
 }
