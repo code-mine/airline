@@ -25,7 +25,7 @@ class Parser {
     var state = ParseState.newInstance().pushContext(Context.GLOBAL)
     state = parseOptions(tokens, state, metadata.getOptions)
     if (tokens.hasNext) {
-      val group = find(metadata.getCommandGroups, compose(equalTo(tokens.peek), CommandGroupMetadata.nameGetter), null)
+      val group = metadata.getCommandGroups.asScala.find { it => it.getName == tokens.peek() }.orNull
       if (group != null) {
         tokens.next
         state = state.withGroup(group).pushContext(Context.GROUP)
