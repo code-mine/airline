@@ -12,17 +12,17 @@ object ParseState {
     new ParseState(
       null,
       null,
-      ArrayListMultimap.create[OptionMetadata, AnyRef],
+      ArrayListMultimap.create[OptionMetadata, Any],
       ImmutableList.of[Context],
-      scala.List[AnyRef]().asJava,
+      scala.List[Any]().asJava,
       null,
       ImmutableList.of[String]
     )
   }
 }
 
-class ParseState(group: CommandGroupMetadata, command: CommandMetadata, parsedOptions: ListMultimap[OptionMetadata, AnyRef],
-                 locationStack: java.util.List[Context], parsedArguments: java.util.List[AnyRef],
+class ParseState(group: CommandGroupMetadata, command: CommandMetadata, parsedOptions: ListMultimap[OptionMetadata, Any],
+                 locationStack: java.util.List[Context], parsedArguments: java.util.List[Any],
                  currentOption: OptionMetadata, unparsedInput: java.util.List[String]) {
 
   def pushContext(location: Context): ParseState = {
@@ -35,8 +35,8 @@ class ParseState(group: CommandGroupMetadata, command: CommandMetadata, parsedOp
     new ParseState(group, command, parsedOptions, locationStack, parsedArguments, currentOption, unparsedInput)
   }
 
-  def withOptionValue(option: OptionMetadata, value: AnyRef): ParseState = {
-    val newOptions = ImmutableListMultimap.builder[OptionMetadata, AnyRef].putAll(parsedOptions).put(option, value).build
+  def withOptionValue(option: OptionMetadata, value: Any): ParseState = {
+    val newOptions = ImmutableListMultimap.builder[OptionMetadata, Any].putAll(parsedOptions).put(option, value).build
     new ParseState(group, command, newOptions, locationStack, parsedArguments, currentOption, unparsedInput)
   }
 
@@ -52,8 +52,8 @@ class ParseState(group: CommandGroupMetadata, command: CommandMetadata, parsedOp
     new ParseState(group, command, parsedOptions, locationStack, parsedArguments, option, unparsedInput)
   }
 
-  def withArgument(argument: AnyRef): ParseState = {
-    val newArguments = new util.ArrayList[AnyRef]((parsedArguments.asScala :+ argument).asJava)
+  def withArgument(argument: Any): ParseState = {
+    val newArguments = new util.ArrayList[Any]((parsedArguments.asScala :+ argument).asJava)
     new ParseState(group, command, parsedOptions, locationStack, newArguments, currentOption, unparsedInput)
   }
 
@@ -90,11 +90,11 @@ class ParseState(group: CommandGroupMetadata, command: CommandMetadata, parsedOp
     currentOption
   }
 
-  def getParsedOptions: ListMultimap[OptionMetadata, AnyRef] = {
+  def getParsedOptions: ListMultimap[OptionMetadata, Any] = {
     parsedOptions
   }
 
-  def getParsedArguments: java.util.List[AnyRef] = {
+  def getParsedArguments: java.util.List[Any] = {
     parsedArguments
   }
 

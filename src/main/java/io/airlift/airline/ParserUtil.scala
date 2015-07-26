@@ -4,6 +4,7 @@ import java.util
 
 import com.google.common.collect.{ImmutableList, ListMultimap}
 import io.airlift.airline.model.{ArgumentsMetadata, OptionMetadata}
+import scala.collection.JavaConversions._
 
 object ParserUtil {
   def createInstance[T >: Null](`type`: Class[T]): T = {
@@ -18,26 +19,23 @@ object ParserUtil {
   }
 
   def createInstance[T](`type`: Class[_ >: Null], options: java.lang.Iterable[OptionMetadata],
-                        parsedOptions: ListMultimap[OptionMetadata, AnyRef],
-                        arguments: ArgumentsMetadata, parsedArguments: java.lang.Iterable[AnyRef],
+                        parsedOptions: ListMultimap[OptionMetadata, Any],
+                        arguments: ArgumentsMetadata, parsedArguments: java.lang.Iterable[Any],
                         metadataInjection: java.lang.Iterable[Accessor],
                         bindings: util.Map[Class[_], AnyRef]): T = {
     val commandInstance: T = createInstance(`type`).asInstanceOf[T]
-    import scala.collection.JavaConversions._
     for (option <- options) {
       var values: util.List[_] = parsedOptions.get(option)
       if (option.getArity > 1 && !values.isEmpty) {
         values = values.asInstanceOf[java.lang.Iterable[java.lang.Iterable[AnyRef]]].flatten.toList
       }
       if (values != null && !values.isEmpty) {
-        import scala.collection.JavaConversions._
         for (accessor <- option.getAccessors) {
           accessor.addValues(commandInstance, values)
         }
       }
     }
     if (arguments != null && parsedArguments != null) {
-      import scala.collection.JavaConversions._
       for (accessor <- arguments.getAccessors) {
         accessor.addValues(commandInstance, parsedArguments)
       }

@@ -36,17 +36,16 @@ class TypeConverter {
       else if (classOf[Double].isAssignableFrom(`type`) || java.lang.Double.TYPE.isAssignableFrom(`type`)) {
         return java.lang.Double.valueOf(value)
       }
-    }
-    catch {
+    } catch {
       case ignored: Exception =>
     }
+
     try {
       val valueOf: Method = `type`.getMethod("fromString", classOf[String])
       if (valueOf.getReturnType.isAssignableFrom(`type`)) {
         return valueOf.invoke(null, value)
       }
-    }
-    catch {
+    } catch {
       case ignored: Throwable =>
     }
     try {
@@ -54,15 +53,13 @@ class TypeConverter {
       if (valueOf.getReturnType.isAssignableFrom(`type`)) {
         return valueOf.invoke(null, value)
       }
-    }
-    catch {
+    } catch {
       case ignored: Throwable =>
     }
     try {
       val constructor: Constructor[_] = `type`.getConstructor(classOf[String])
       return constructor.newInstance(value)
-    }
-    catch {
+    } catch {
       case ignored: Throwable =>
     }
     throw new ParseOptionConversionException(name, value, `type`.getSimpleName)
