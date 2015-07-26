@@ -37,7 +37,7 @@ class Parser {
       expectedCommands = state.getGroup.getCommands
     }
     if (tokens.hasNext) {
-      val command = find(expectedCommands, compose(equalTo(tokens.peek), CommandMetadata.nameGetter), null)
+      val command = expectedCommands.asScala.find{ it => it.getName == tokens.peek() }.orNull
       if (command == null) {
         while (tokens.hasNext) {
           state = state.withUnparsedInput(tokens.next)

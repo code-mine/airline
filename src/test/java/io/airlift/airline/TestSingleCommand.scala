@@ -32,6 +32,7 @@ import org.testng.Assert._
 import org.testng.annotations.{DataProvider, Test}
 
 import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 
 object TestSingleCommand {
@@ -85,7 +86,7 @@ class TestSingleCommand {
   @Test
   @throws(classOf[ParseException])
   def classicGetoptArgs() {
-    val args: ArgsSingleChar = singleCommand(classOf[ArgsSingleChar]).parse("-lg", "-dsn", "-pa-p", "-2f", "-z", "--Dfoo")
+    val args = singleCommand(classOf[ArgsSingleChar]).parse("-lg", "-dsn", "-pa-p", "-2f", "-z", "--Dfoo")
     assertTrue(args.l)
     assertTrue(args.g)
     assertTrue(args.d)
@@ -102,7 +103,7 @@ class TestSingleCommand {
   @Test
   @throws(classOf[ParseException])
   def classicGetoptFailure() {
-    val args: ArgsSingleChar = singleCommand(classOf[ArgsSingleChar]).parse("-lgX")
+    val args = singleCommand(classOf[ArgsSingleChar]).parse("-lgX")
     assertFalse(args.l)
     assertFalse(args.g)
     assertEquals(args.parameters, util.Arrays.asList("-lgX"))
@@ -113,8 +114,8 @@ class TestSingleCommand {
    * the usage will only display it once.
    */
   @Test def repeatedArgs() {
-    val parser: SingleCommand[Args1] = singleCommand(classOf[Args1])
-    val command: CommandMetadata = find(ImmutableList.of(parser.getCommandMetadata), compose(equalTo("Args1"), CommandMetadata.nameGetter))
+    val parser = singleCommand(classOf[Args1])
+    val command = List(parser.getCommandMetadata).find{_.getName == "Args1"}.orNull
     assertEquals(command.getAllOptions.size, 8)
   }
 
@@ -122,7 +123,7 @@ class TestSingleCommand {
    * Required options with multiple names should work with all names.
    */
   private def multipleNames(option: String) {
-    val args: Args1 = singleCommand(classOf[Args1]).parse(option, "2")
+    val args = singleCommand(classOf[Args1]).parse(option, "2")
     assertEquals(args.verbose.intValue, 2)
   }
 
@@ -135,7 +136,7 @@ class TestSingleCommand {
   }
 
   @Test def arityString() {
-    val args: ArgsArityString = singleCommand(classOf[ArgsArityString]).parse("-pairs", "pair0", "pair1", "rest")
+    val args = singleCommand(classOf[ArgsArityString]).parse("-pairs", "pair0", "pair1", "rest")
     assertEquals(args.pairs.size, 2)
     assertEquals(args.pairs.get(0), "pair0")
     assertEquals(args.pairs.get(1), "pair1")
@@ -154,17 +155,17 @@ class TestSingleCommand {
   }
 
   @Test def privateArgs() {
-    val args: ArgsPrivate = singleCommand(classOf[ArgsPrivate]).parse("-verbose", "3")
+    val args = singleCommand(classOf[ArgsPrivate]).parse("-verbose", "3")
     assertEquals(args.getVerbose.intValue, 3)
   }
 
   private def argsBoolean1(params: Array[String], expected: Boolean) {
-    val args: ArgsBooleanArity = singleCommand(classOf[ArgsBooleanArity]).parse(params)
+    val args = singleCommand(classOf[ArgsBooleanArity]).parse(params)
     assertEquals(args.debug, expected)
   }
 
   private def argsBoolean0(params: Array[String], expected: Boolean) {
-    val args: ArgsBooleanArity0 = singleCommand(classOf[ArgsBooleanArity0]).parse(params)
+    val args = singleCommand(classOf[ArgsBooleanArity0]).parse(params)
     assertEquals(args.debug, expected)
   }
 
@@ -187,7 +188,7 @@ class TestSingleCommand {
   }
 
   @Test def listParameters() {
-    val a: Args2 = singleCommand(classOf[Args2]).parse("-log", "2", "-groups", "unit", "a", "b", "c", "-host", "host2")
+    val a = singleCommand(classOf[Args2]).parse("-log", "2", "-groups", "unit", "a", "b", "c", "-host", "host2")
     assertEquals(a.verbose.intValue, 2)
     assertEquals(a.groups, "unit")
     assertEquals(a.hosts, util.Arrays.asList("host2"))
@@ -195,13 +196,13 @@ class TestSingleCommand {
   }
 
   @Test def inheritance() {
-    val args: ArgsInherited = singleCommand(classOf[ArgsInherited]).parse("-log", "3", "-child", "2")
+    val args = singleCommand(classOf[ArgsInherited]).parse("-log", "3", "-child", "2")
     assertEquals(args.child.intValue, 2)
     assertEquals(args.log.intValue, 3)
   }
 
   @Test def negativeNumber() {
-    val a: Args1 = singleCommand(classOf[Args1]).parse("-verbose", "-3")
+    val a = singleCommand(classOf[Args1]).parse("-verbose", "-3")
     assertEquals(a.verbose.intValue, -3)
   }
 
@@ -243,12 +244,12 @@ class TestSingleCommand {
   }
 
   @Test def arity1Success1() {
-    val arguments: Arity1 = singleCommand(classOf[Arity1]).parse("-inspect", "true")
+    val arguments = singleCommand(classOf[Arity1]).parse("-inspect", "true")
     assertTrue(arguments.inspect)
   }
 
   @Test def arity1Success2() {
-    val arguments: Arity1 = singleCommand(classOf[Arity1]).parse("-inspect", "false")
+    val arguments = singleCommand(classOf[Arity1]).parse("-inspect", "false")
     assertFalse(arguments.inspect)
   }
 
@@ -275,7 +276,7 @@ class TestSingleCommand {
   }
 
   @Test def enumArgs() {
-    val args: ArgsEnum = singleCommand(classOf[ArgsEnum]).parse("-choice", "ONE")
+    val args = singleCommand(classOf[ArgsEnum]).parse("-choice", "ONE")
     assertEquals(args.choice, ArgsEnum.ChoiceType.ONE)
   }
 
@@ -292,7 +293,7 @@ class TestSingleCommand {
   }
 
   @Test def testSingleCommandHelpOption() {
-    val commandTest: TestSingleCommand.CommandTest = singleCommand(classOf[TestSingleCommand.CommandTest]).parse("-h", "-i", "foo")
+    val commandTest = singleCommand(classOf[TestSingleCommand.CommandTest]).parse("-h", "-i", "foo")
     assertTrue(commandTest.helpOption.showHelpIfRequested)
   }
 }

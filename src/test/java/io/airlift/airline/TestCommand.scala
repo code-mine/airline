@@ -104,7 +104,7 @@ class TestCommand {
    */
   @Test def repeatedArgs() {
     val parser = singleCommandParser(classOf[Args1])
-    val command = find(parser.getMetadata.getDefaultGroupCommands, compose(equalTo("Args1"), CommandMetadata.nameGetter))
+    val command = parser.getMetadata.getDefaultGroupCommands.asScala.find{it => it.getName == "Args1"}.orNull
     assertEquals(command.getAllOptions.size, 8)
   }
 
