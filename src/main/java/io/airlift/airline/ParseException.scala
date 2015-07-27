@@ -17,23 +17,11 @@
  */
 package io.airlift.airline
 
-class ParseException(cause: Exception, string: String, args: AnyRef*)
+class ParseException(cause: Exception, string: String, args: Any*)
   extends RuntimeException(String.format(string, args), cause) {
-
-  def this(cause: Exception, string: String, arg1: AnyRef) {
-    this(cause, String.format(string, Array(arg1): _*))
-  }
-
-  def this(cause: Exception, string: String, arg1: AnyRef, arg2: AnyRef) {
-    this(cause, String.format(string, Array(arg1, arg2): _*))
-  }
 
   def this(string: String, arg1: AnyRef) {
     this(null.asInstanceOf[Exception], String.format(string, Array(arg1): _*))
-  }
-
-  def this(string: String, arg1: AnyRef, arg2: AnyRef) {
-    this(null.asInstanceOf[Exception], String.format(string, Array(arg1, arg2): _*))
   }
 
   def this(string: String, arg1: AnyRef, arg2: AnyRef, arg3: AnyRef) {

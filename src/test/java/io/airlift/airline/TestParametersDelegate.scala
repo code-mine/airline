@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.Lists.newArrayList
+import io.airlift.airline.TestParametersDelegate.CombinedAndNestedDelegates
 import io.airlift.airline.TestParametersDelegate.CombinedAndNestedDelegates.NestedDelegate2
 import io.airlift.airline.TestParametersDelegate.CommandTest.Delegate
 import io.airlift.airline.TestParametersDelegate.DelegatingSetsFieldsOnBothMainParamsAndTheDelegatedParams.ComplexDelegate
@@ -170,7 +171,7 @@ class TestParametersDelegate {
   }
 
   @Test def combinedAndNestedDelegates() {
-    val p = singleCommandParser(classOf[TestParametersDelegate.CombinedAndNestedDelegates])
+    val p = singleCommandParser(classOf[CombinedAndNestedDelegates])
              .parse("command", "-d", "234", "--list", "a", "--list", "b", "-a")
     assertEquals(p.nestedDelegate2.nestedDelegate1.leafDelegate.list, newArrayList("value1", "value2", "a", "b"))
     assertFalse(p.nestedDelegate2.nestedDelegate1.leafDelegate.bool)

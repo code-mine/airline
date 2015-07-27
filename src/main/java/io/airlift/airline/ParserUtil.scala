@@ -23,6 +23,7 @@ object ParserUtil {
                         arguments: ArgumentsMetadata, parsedArguments: java.lang.Iterable[Any],
                         metadataInjection: java.lang.Iterable[Accessor],
                         bindings: util.Map[Class[_], AnyRef]): T = {
+
     val commandInstance: T = createInstance(`type`).asInstanceOf[T]
     for (option <- options) {
       var values: util.List[_] = parsedOptions.get(option)
@@ -31,19 +32,19 @@ object ParserUtil {
       }
       if (values != null && !values.isEmpty) {
         for (accessor <- option.getAccessors) {
-          accessor.addValues(commandInstance, values)
+          accessor.addValues(commandInstance.asInstanceOf[AnyRef], values)
         }
       }
     }
     if (arguments != null && parsedArguments != null) {
       for (accessor <- arguments.getAccessors) {
-        accessor.addValues(commandInstance, parsedArguments)
+        accessor.addValues(commandInstance.asInstanceOf[AnyRef], parsedArguments)
       }
     }
     for (accessor <- metadataInjection) {
       val injectee: AnyRef = bindings.get(accessor.getJavaType)
       if (injectee != null) {
-        accessor.addValues(commandInstance, ImmutableList.of(injectee))
+        accessor.addValues(commandInstance.asInstanceOf[AnyRef], ImmutableList.of(injectee))
       }
     }
     commandInstance
