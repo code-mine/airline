@@ -154,7 +154,7 @@ object MetadataLoader {
           val description = argumentsAnnotation.description
           val usage = argumentsAnnotation.usage
           val required = argumentsAnnotation.required
-          injectionMetadata.arguments.add(new ArgumentsMetadata(title, description, usage, required, path))
+          injectionMetadata.arguments.add(new ArgumentsMetadata(title, description, usage, required, ImmutableSet.of(new Accessor(path))))
         }
       }
       cls = cls.getSuperclass
@@ -196,7 +196,7 @@ object MetadataLoader {
       groupOptions = mergeOptionSet(groupOptions)
       commandOptions = mergeOptionSet(commandOptions)
       if (arguments.size > 1) {
-        arguments = ImmutableList.of(new ArgumentsMetadata(arguments))
+        arguments = ImmutableList.of(ArgumentsMetadata(arguments))
       }
     }
   }

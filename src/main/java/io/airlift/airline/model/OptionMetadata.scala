@@ -1,9 +1,9 @@
 package io.airlift.airline.model
 
-import java.util.Set
+import java.util
 
-import com.google.common.collect.{ImmutableSet, Iterables}
 import com.google.common.collect.Sets.newHashSet
+import com.google.common.collect.{ImmutableSet, Iterables}
 import io.airlift.airline.{Accessor, OptionType, Preconditions}
 
 import scala.collection.JavaConversions._
@@ -24,7 +24,7 @@ object OptionMetadata {
     }
     val accessors: java.util.Set[Accessor] = newHashSet()
     for (other <- options) {
-      Preconditions.checkArgument(option == other, s"Conflicting options definitions: ${option}, ${other}")
+      Preconditions.checkArgument(option == other, s"Conflicting options definitions: $option, $other")
       accessors.addAll(other.getAccessors)
     }
     new OptionMetadata(
@@ -51,7 +51,7 @@ class OptionMetadata(val optionType: OptionType, val options: java.lang.Iterable
   Preconditions.checkArgument(!Iterables.isEmpty(options), "options is empty")
   Preconditions.checkNotNull(title, "title is null")
   Preconditions.checkNotNull(accessors, "accessors is null")
-  Preconditions.checkArgument(!Iterables.isEmpty(accessors), "accessors is empty");
+  Preconditions.checkArgument(!Iterables.isEmpty(accessors), "accessors is empty")
 
   val optionsSet: java.util.Set[String] = newHashSet(options)
 
@@ -91,7 +91,7 @@ class OptionMetadata(val optionType: OptionType, val options: java.lang.Iterable
     accessors.iterator.next.getJavaType
   }
 
-  def getAccessors: Set[Accessor] = {
+  def getAccessors: util.Set[Accessor] = {
     accessors
   }
 
