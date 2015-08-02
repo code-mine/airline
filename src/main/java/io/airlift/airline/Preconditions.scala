@@ -27,4 +27,10 @@ object Preconditions {
       throw new IllegalArgumentException(String.valueOf(errorMessage))
     }
   }
+
+  def checkState(expression: Boolean, @Nullable errorMessage: AnyRef) {
+    if (!expression) {
+      throw new IllegalStateException(String.valueOf(errorMessage))
+    }
+  }
 }
